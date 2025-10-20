@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>chat_web</title>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+        #message_box {
+            width: 100%;
+            height:70%;
+            padding:10px;
+            scroll-width: none;
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        #message_box p{
+            width: 10%
+            color: white;
+            border-radius: 10px;
+            
+        }
+        .send_message {
+            background: blue;
+            margin-left: auto
+        }
+        .receive_message {
+            background : red;
+        }
+        #message_text {
+            width: 70%;
+            height: 10%;
+        }
+        #send_btn {
+            width: 20%;
+            height: 10%
+        }
+    </style>
+</head>
+<body>
+    <div id="message_box">
+        لاتوجد رسالة
+    </div>
+    <input type="text" id="message_text">
+    <button id="send_btn">ارسل</button>
+<script>
+    const user = prompt("اسم المستخدم");
+    const message_box = document.querySelector("#message_box");
+    const send_btn = document.querySelector("#send_btn");
+    const message_text = document.querySelector("#message_text");
+    let message_updater;
+    send_btn.onclick=()=>{
+        fetch(`https://mmx10d-storage.onrender.com/save?name=message.txt&data=${user}:${message_text.value}`)
+        .then(()=>{
+        message_text.value = "";
+            send(message_text.value)
+        })
+        .catch(_=>alert("لا يوجد اتصال"))
+    }
+    function send(message){
+        message_box.innerHTML += `
+            <p class="send_message">${message}</p>
+        `;
+    }
+    function receive(message){
+        message_box.innerHTML += `
+            <p class="receive_message">${message}</p>
+        `;
+    }
+    function update_message(){
+        fetch(`https://mmx10d-storage.onrender.com/get?name=message.txt`) .then(res => res.json()) .then(res => {
+        message_box.innerHTML=""
+            for(let i = 0 ; i < res.length ; i++){
+                username = res[i].slice(0,res[i].indexOf(":"));
+                usermessage = res[i].slice(res[i].indexOf(":")+1);
+                if(username==user){
+                    send(usermessage)
+                }
+                else{
+                    receive(usermessage)
+                }
+            }
+        })
+    }
+    message_updater = setInterval(()=>{
+        update_message();
+    },1000)
+</script>
+</body>
+</html>
