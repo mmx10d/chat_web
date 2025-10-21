@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="veiwport" content="width=device-width, initial-scale=1.0">
     <title>chat_web</title>
     <style>
         body{
@@ -9,6 +10,8 @@
             height: 100vh;
             padding: 0;
             margin: 0;
+            background: black;
+            color: white;
         }
         #message_box {
             width: 100%;
@@ -19,17 +22,19 @@
             overflow-x: hidden;
         }
         #message_box p{
-            width: 10%
+            width: 50%;
             color: white;
             border-radius: 10px;
+            padding: 10px;
+            border: 1px solid white;
             
         }
         .send_message {
             background: blue;
-            margin-left: auto
         }
         .receive_message {
             background : red;
+            margin-left: auto;
         }
         #message_text {
             width: 70%;
@@ -86,6 +91,7 @@
             }
         })
     }
+    update_message();
     message_updater = setInterval(()=>{
         update_message();
     },1000)
