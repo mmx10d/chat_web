@@ -53,7 +53,14 @@
     <input type="text" id="message_text">
     <button id="send_btn">ارسل</button>
 <script>
-    const user = prompt("اسم المستخدم");
+    const user = localStorage.getItem("username") || prompt("اسم المستخدم");
+    if(user == "undefined" || user == ""){
+	alert("اكتب اسمك");
+	location.reload();
+    }
+    else{
+        localStorage.setItem("username",user);
+    }
     const message_box = document.querySelector("#message_box");
     const send_btn = document.querySelector("#send_btn");
     const message_text = document.querySelector("#message_text");
