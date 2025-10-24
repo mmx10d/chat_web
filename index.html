@@ -38,11 +38,20 @@
         }
         #message_text {
             width: 70%;
-            height: 10%;
+            height: 100%;
         }
         #send_btn {
             width: 20%;
-            height: 10%
+            height: 100%
+        }
+        #send_div {
+	    display: flex;
+	    width: 100vw;
+	    margin: 0;
+	    padding: 1px;
+    	    position: fixed;
+	    bottom: 0;
+            height: 15vh;
         }
     </style>
 </head>
@@ -50,8 +59,10 @@
     <div id="message_box">
         لاتوجد رسالة
     </div>
-    <input type="text" id="message_text">
-    <button id="send_btn">ارسل</button>
+    <div id="send_div">
+    	<input type="text" id="message_text">
+    	<button id="send_btn">ارسل</button>
+    </div>
 <script>
     const user = localStorage.getItem("username") || prompt("اسم المستخدم");
     if(user == "undefined" || user == ""){
