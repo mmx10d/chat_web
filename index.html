@@ -77,7 +77,7 @@
     const message_text = document.querySelector("#message_text");
     let message_updater;
     send_btn.onclick=()=>{
-        fetch(`https://mmx10d-storage.onrender.com/save?name=message.txt&data=${user}:${message_text.value}`)
+        fetch(`https://mmx10d-storage.onrender.com/save?folder=chat-web&name=message.txt&data=${user}:${message_text.value}`)
         .then(()=>{
         message_text.value = "";
             send(message_text.value)
@@ -95,7 +95,7 @@
         `;
     }
     function update_message(){
-        fetch(`https://mmx10d-storage.onrender.com/get?name=message.txt`) .then(res => res.json()) .then(res => {
+        fetch(`https://mmx10d-storage.onrender.com/get?folder=chat-web&name=message.txt`) .then(res => res.json()) .then(res => {
         message_box.innerHTML=""
             for(let i = 0 ; i < res.length ; i++){
                 username = res[i].slice(0,res[i].indexOf(":"));
